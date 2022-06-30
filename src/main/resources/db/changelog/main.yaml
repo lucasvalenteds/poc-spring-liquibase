@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220629-001
+      author: lucas
+      comment: Creating tables for Country and Customer
+      changes:
+        - sqlFile:
+            path: changes/001-create-country-table.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: changes/002-create-customer-table.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: changes/002-drop-customer-table-rollback.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            path: changes/001-drop-country-table-rollback.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 20220629-002
+      author: lucas
+      comment: Inserting Country fixtures
+      changes:
+        - sqlFile:
+            path: changes/003-insert-countries.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: changes/003-insert-countries-rollback.sql
+            relativeToChangelogFile: true
