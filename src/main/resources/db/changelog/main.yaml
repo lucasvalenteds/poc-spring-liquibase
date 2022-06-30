@@ -12,10 +12,10 @@ databaseChangeLog:
             relativeToChangelogFile: true
       rollback:
         - sqlFile:
-            path: changes/002-drop-customer-table-rollback.sql
+            path: changes/002-create-customer-table-rollback.sql
             relativeToChangelogFile: true
         - sqlFile:
-            path: changes/001-drop-country-table-rollback.sql
+            path: changes/001-create-country-table-rollback.sql
             relativeToChangelogFile: true
   - changeSet:
       id: 20220629-002
