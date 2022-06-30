@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.country.CountryNotFoundException;
 import com.example.country.CountryRepository;
 import com.example.customer.Customer;
 import com.example.customer.CustomerRepository;
@@ -14,6 +15,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Testcontainers
@@ -53,5 +57,18 @@ class ApplicationTest {
                 .contains(customer);
         assertThat(customer.getCountry())
                 .isEqualTo(country);
+    }
+
+    @Test
+    void throwsWhenCountryCodeDoesNotExist() {
+        final var code = "CH";
+
+        final var exception = assertThrows(
+                CountryNotFoundException.class,
+                () -> countryRepository.findByCodeOrThrow(code)
+        );
+
+        assertEquals("None country found with code CH", exception.getMessage());
+        assertNull(exception.getCause());
     }
 }

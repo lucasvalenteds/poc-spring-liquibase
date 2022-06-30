@@ -11,8 +11,8 @@ public interface CountryRepository extends CrudRepository<Country, UUID> {
 
     Optional<Country> findByCode(String code);
 
-    default Country findByCodeOrThrow(String code) throws RuntimeException {
+    default Country findByCodeOrThrow(String code) throws CountryNotFoundException {
         return findByCode(code)
-                .orElseThrow(() -> new RuntimeException("Country not found with code " + code));
+                .orElseThrow(() -> new CountryNotFoundException(code));
     }
 }
